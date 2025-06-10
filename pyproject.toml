@@ -1,0 +1,112 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "raspberry-pi-robot"
+version = "1.0.0"
+description = "Raspberry Pi Robot Control System"
+authors = [
+    {name = "Adeept", email = "your-email@example.com"},
+]
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: System :: Hardware",
+    "Topic :: Scientific/Engineering",
+]
+
+dependencies = [
+    # Core Python packages
+    "numpy",
+    "flask",
+    "flask-cors",
+    "websockets",
+    "imutils",
+    "zmq",  # Note: this might need to be "pyzmq"
+    "pybase64",
+    "psutil",
+
+    # Hardware-specific packages
+    "luma.oled",
+    "adafruit-pca9685",
+    "rpi-ws281x",
+    "mpu6050-raspberrypi",
+
+    # OpenCV - using newer version, adjust as needed
+    "opencv-contrib-python>=4.5.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "black",
+    "flake8",
+    "mypy",
+]
+
+# System dependencies that need to be installed via apt
+# These would typically go in a separate installation script
+[tool.system-dependencies]
+apt-packages = [
+    "python3-dev",
+    "python3-pip",
+    "python3-smbus",
+    "libfreetype6-dev",
+    "libjpeg-dev",
+    "build-essential",
+    "i2c-tools",
+    "libqtgui4",
+    "libhdf5-dev",
+    "libhdf5-serial-dev",
+    "libatlas-base-dev",
+    "libjasper-dev",
+    "libqt4-test",
+    "util-linux",
+    "procps",
+    "hostapd",
+    "iproute2",
+    "iw",
+    "haveged",
+    "dnsmasq",
+]
+
+remove-packages = [
+    "wolfram-engine",
+    "libreoffice*",
+]
+
+[project.scripts]
+robot-setup = "robot_setup:main"
+
+[project.urls]
+Homepage = "https://github.com/your-username/raspberry-pi-robot"
+Repository = "https://github.com/your-username/raspberry-pi-robot.git"
+Issues = "https://github.com/your-username/raspberry-pi-robot/issues"
+
+[tool.uv]
+# UV-specific configuration
+dev-dependencies = [
+    "pytest>=7.0.0",
+    "black>=22.0.0",
+    "ruff>=0.1.0",
+]
+
+[tool.black]
+line-length = 88
+target-version = ["py37", "py38", "py39", "py310", "py311"]
+
+[tool.ruff]
+line-length = 88
+select = ["E", "F", "W", "I"]
+ignore = ["E501"]
